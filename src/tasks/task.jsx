@@ -585,55 +585,195 @@ export const Task23 = () => {
 } 
 
 export const Task24 = () => {
-    
+    const [notes, setNotes] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
   
+    function getSum(arr) {
+        return Math.floor(arr.reduce((acc, elem) => acc + elem)/arr.length)
+    }
+    
+    function handelChange(index, event) {
+        setNotes([...notes.slice(0, index), +event.target.value, ...notes.slice(index + 1)]);
+    }
+
+    const result = notes.map((note, i) => {
+        return <input
+                    key={i}
+                    value={note}
+                    onChange={event => handelChange(i, event)}
+                />
+    })
+   
     return <>
         <div className="border">
-            <h5>24. </h5>
-            <div></div>
+            <h5>24. Выведите на экран среднее арифметическое элементов этого массива. В цикле сделайте инпуты для редактирования элементов.</h5>
+            <div>
+                {result}
+                <p>{getSum(notes)}</p>
+            </div>
         </div>
     </>
 } 
 
 export const Task25 = () => {
-    
-  
+    const initDate = {
+        year:  2023,
+        month: 12,
+        day:   25,
+    }
+
+    const [obj, setObj] = useState(initDate)
+
+    const dayWeek = new Date(obj.year, obj.month-1, obj.day).getDay();
+    const week = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб']
+
+    function handlerChange(prop, event) {
+        setObj({...obj, ...{[prop] : event.target.value}})
+    }
+ 
     return <>
         <div className="border">
-            <h5>25. </h5>
-            <div></div>
+            <h5>25. Пусть в стейте хранится объект с датой. Выведите в абзаце год, месяц и день из даты, хранящейся в стейте, а также день недели, соответствующий ей.</h5>
+            <div>
+                <input 
+                    type="number" 
+                    value={obj.year}
+                    onChange={event => handlerChange('year', event)}
+                />
+                <input 
+                    type="number" 
+                    value={obj.month}
+                    onChange={event => handlerChange('month', event)}
+                />
+                <input 
+                    type="number" 
+                    value={obj.day}
+                    onChange={event => handlerChange('day', event)}
+                />
+
+                <p>Это день недели: {week[dayWeek]}</p>
+            </div>
         </div>
     </>
 } 
 
 export const Task26 = () => {
+    const cities = ['Москва', 'Питер', 'Воронеж', 'Казань'];
+    const [arrCity, setCity] = useState(cities);
+    const [value, setValue] = useState('');
     
+    function addElem(elem) {
+        const copyCities = [...arrCity, elem];
+        setCity(copyCities);
+    }
+    const result = arrCity.map((elem, i) => {
+        return <li key={i}> {elem} </li>
+    })
   
     return <>
         <div className="border">
-            <h5>26. </h5>
-            <div></div>
+            <h5>26. Сделайте кнопку, по нажатию на которую будет добавляться новый элемент в конец массива, тем самым добавляя новый li в конец тега ul.</h5>
+            <div>
+                <ul>{result}</ul>
+                <input 
+                    placeholder='Введите город'
+                    onChange={event=> setValue(event.target.value)}
+                />
+                <button onClick={() => addElem(value)}>add</button>
+            </div>
         </div>
     </>
 } 
 
 export const Task27 = () => {
-    
+    const [nums, setNums] = useState([2, 3, 4, 5])
+    const [value, setValue] = useState('')
+    const [id, setId] = useState(0)
+    const arr = [...nums];
+
+    function getSquare(index, event) {
+        const square = Math.pow(event.target.textContent, 2)
+        for(let i = 0; i < arr.length; i++) {
+            arr[index] = square;
+            setId(index)
+        }
+        setNums(arr);
+        setValue(square); 
+    }
+
+    function deleteElem(index) {
+        arr.splice(index, 1);
+        setNums(arr)
+    }
+
+    function handleBlur(event, index) {
+        arr[index] = event.target.value;
+        setNums(arr);
+        
+    }
+
+    function reversArray() {
+        arr.reverse();
+        setNums(arr);
+    }
+
+
+    const result = nums.map((elem, i) => {
+        return <li key={i} >
+            <span 
+                style={{display: 'inline-block', width: '30px'}} 
+                onClick={(event) => {getSquare(i, event)}}
+            >
+                {elem}
+            </span> 
+            <button onClick={() => deleteElem(i)}>del</button>
+        </li>
+    })
   
     return <>
         <div className="border">
-            <h5>27. </h5>
-            <div></div>
+            <h5>27. Дан массив с числами. Выведите его в виде списка ul. По клику на любую li возведите ее число в квадрат.</h5>
+            <div>
+                <ul>
+                    {result}
+                </ul>
+                <button onClick={reversArray}>revers</button>
+                <input 
+                    type="text" 
+                    value={value} 
+                    onChange={event => setValue(event.target.value)}
+                    onBlur={(event) => handleBlur(event, id)}
+                />
+            </div>
         </div>
     </>
 } 
 
 export const Task28 = () => {
-    
+    const obj = [
+        {
+            id: nanoid(4),
+            prop11: 'text11',
+            prop12: 'text12'
+        },
+        {
+            id: nanoid(4),
+            prop22: 'text22',
+            prop21: 'text21'
+        },
+        {
+            id: nanoid(4),
+            prop33: 'text33',
+            prop31: 'text32'
+        }
+    ]
+
+    for(let i=0; i < obj.length; i++){
+        console.log(obj[i].id)
+    }
   
     return <>
         <div className="border">
-            <h5>28. </h5>
+            <h5>28. Сделайте кнопку, по нажатию на которую будет добавляться новый элемент в конец массива, тем самым добавляя новый li в конец тега ul.</h5>
             <div></div>
         </div>
     </>
