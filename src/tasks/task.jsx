@@ -752,40 +752,161 @@ export const Task28 = () => {
     const obj = [
         {
             id: nanoid(4),
-            prop11: 'text11',
-            prop12: 'text12'
+            name: 'Авокадо',
+            price: '80'
         },
         {
             id: nanoid(4),
-            prop22: 'text22',
-            prop21: 'text21'
+            name: 'Капуста',
+            price: '20'
         },
         {
             id: nanoid(4),
-            prop33: 'text33',
-            prop31: 'text32'
+            name: 'Горох',
+            price: '45'
         }
-    ]
+    ];
 
-    for(let i=0; i < obj.length; i++){
-        console.log(obj[i].id)
+    const [object, setObject] = useState(obj);
+    const [product, setProduct] = useState('');
+    const [price, setPrice] = useState('');
+    const [productEdit, setProductEdit] = useState('');
+    const [priceEdit, setPriceEdit] = useState('');
+   
+    
+    let result = object.map(elem => {
+        return  <li key={elem.id}>
+                    <span style={{display: 'inline-block', width: '240px'}}>Продукт {elem.name} - цена {elem.price}</span>
+                    <button onClick={() => deleteElementHandler(elem.id)}>delete</button>
+                    <button onClick={() => editElemHandler(elem)}>edit</button>
+                </li> 
+    })
+
+    function createElemHandler() {
+        const arr = [...object, {
+            id: nanoid(4),
+            name: product,
+            price: price
+        }];
+        setObject(arr);
+        setProduct('')
+        setPrice('');
+    }
+
+    function deleteElementHandler(index) {
+        const arr = [...object].filter(elem => {
+            if(elem.id !== index) {
+                return elem
+            }
+        })
+        setObject(arr)
     }
   
+    function editElemHandler(elem) {
+        setProductEdit(elem.name);
+        setPriceEdit(elem.price);
+    }
+
+    function saveChangesHandlerName (event) {
+        if(event.key === 'Enter') {
+            const arr = [...object].map(elem => {
+                if (elem.name === productEdit) {
+                    return { ...elem, name: event.target.value };
+                }
+                return elem;
+            });
+            setObject(arr);
+            setProductEdit('');
+        }
+    }
+
+    function saveChangesHandlerPrice(event) {
+        if (event.key === 'Enter') {
+            const arr = [...object].map(elem => {
+                if (elem.price === priceEdit) {
+                    return { ...elem, price: event.target.value };
+                }
+                return elem;
+            });
+            setObject(arr);
+            setPriceEdit('');
+        }
+    }
+
+
     return <>
         <div className="border">
             <h5>28. Сделайте кнопку, по нажатию на которую будет добавляться новый элемент в конец массива, тем самым добавляя новый li в конец тега ul.</h5>
-            <div></div>
+            <div>
+                <div style={{display: 'flex'}}>
+                    <p>{result}</p>
+                    <div>
+                        <input type="text" defaultValue={productEdit} onKeyDown={event => saveChangesHandlerName(event)}/>
+                        <input type="text" defaultValue={priceEdit} onKeyDown={event => saveChangesHandlerPrice(event)}/>
+                    </div>
+                </div>
+                
+                <input 
+                    type="text"
+                    placeholder='Продукт'
+                    value={product}
+                    onChange={event => setProduct(event.target.value)}
+                />
+                <input 
+                    type="text"
+                    placeholder='Цена'
+                    value={price}
+                    onChange={event => setPrice(event.target.value)}
+                />
+                <button onClick={createElemHandler}>add</button>
+            </div>
         </div>
     </>
 } 
 
 export const Task29 = () => {
+    const initNotes = [
+        {
+            id: nanoid(4),
+            name: 'name1',
+            desc: 'long description 1',
+            show: false,
+        },
+        {
+            id: nanoid(4),
+            name: 'name2',
+            desc: 'long description 2',
+            show: false,
+        },
+        {
+            id: nanoid(4),
+            name: 'name3',
+            desc: 'long description 3',
+            show: false,
+        },
+    ];
     
-  
+    const [notes, setNotes] = useState(initNotes);
+
+    const result = [...notes].map(elem => {
+        return  <p key={elem.id}>
+                    {elem.name}
+                    {elem.show ? '' : elem.desc}
+                    <button onClick={!elem.show}>show</button>
+                </p>
+    })
+
+
     return <>
         <div className="border">
-            <h5>29.</h5>
-            <div></div>
+            <h5>29. В конце каждого абзаца сделайте кнопку, по нажатию на которую будет показываться полное описание продукта.</h5>
+            <div>
+                <div>
+                    {result}
+                </div>
+                
+
+            </div>
         </div>
     </>
 } 
