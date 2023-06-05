@@ -4,6 +4,11 @@ import uuid from 'react-uuid';
 
 import React, { Component } from 'react';
 
+import Employee from './Employee_30task';
+import Employee_1 from './Employee_31task'
+import Product from './Product_32task'
+import Product_1 from './Product_33task'
+
 export function Task1() {
     function showNum(number) {
         alert(number)
@@ -891,10 +896,20 @@ export const Task29 = () => {
     const result = [...notes].map(elem => {
         return  <p key={elem.id}>
                     {elem.name}
-                    {elem.show ? '' : elem.desc}
-                    <button onClick={!elem.show}>show</button>
+                    {!elem.show ? '' : elem.desc}
+                    <button onClick={() => showElem(elem.id)}>show</button>
                 </p>
     })
+
+    function showElem(index) {
+        const arr = [...notes].map(elem => {
+            if(elem.id === index) {
+                return { ...elem, show: !elem.show };
+            }
+            return elem;
+        });
+        setNotes(arr)
+    }
 
 
     return <>
@@ -912,17 +927,164 @@ export const Task29 = () => {
 } 
 
 export const Task30 = () => {
-    
   
     return <>
         <div className="border">
-            <h5>30..</h5>
-            <div></div>
+            <h5>30. Сделайте компонент Employee, выводящий данные работника на экран. Пусть этими данными будут фамилия, имя, отчество и зарплата. Оформите эти данные в нужную вам верстку. Выведите в компоненте App трех работников с разными данными.</h5>
+            <Employee name="Ivan" surname="Ivanov" salary="500"/>
+            <Employee name="Petya" surname="Petrov" salary="650"/>
+            <Employee name="Dima" surname="Sidorov" salary="420"/>
         </div>
     </>
 } 
 
+export const Task31 = () => {
+    const users = [
+        {id: nanoid(3), name: "Ivan", surname: "Ivanov", age: 30},
+        {id: nanoid(3),  name: "Petya", surname: "Petrov" , age: 31},
+        {id: nanoid(3), name: "Dima", surname: "Sidorov", age: 32},
+    ];
 
+    const result = users.map(elem => {
+        return <>
+            <Employee_1
+                key={elem.id}
+                name={elem.name}
+                surname={elem.surname}
+                age={elem.age}
+            />
+        </>
+    })
+
+    return <>
+        <div className="border">
+            <h5>31. С помощью этого массива выведите трех юзеров. Оформите их вывод в виде таблицы table.</h5>
+            <div>
+                {result}
+            </div>
+            
+        </div>
+    </>
+} 
+
+export const Task32 = () => {
+    const products = [
+        { id: nanoid(3), name: 'Яблоко', cost: 30, card: false, isEdit: false},
+        { id: nanoid(3), name: 'Банан', cost: 31, card: false, isEdit: false},
+        { id: nanoid(3), name: 'Груша', cost: 32, card: false,  isEdit: false},
+      ];
+    
+      const [arrProducts, setProducts] = useState(products);
+    
+      const result = [...arrProducts].map((elem) => (
+        <Product
+          key={elem.id}
+          id={elem.id}
+          name={elem.name}
+          cost={elem.cost}
+          isCard={elem.card}
+          addTOCatd={addTOCatd}
+          isEdit={elem.isEdit}
+          toggleMode={toggleMode}
+          editElem={editElem}
+        />
+      ));
+
+      function addTOCatd(id) {
+        setProducts([...arrProducts].map(elem => {
+            if(elem.id === id) {
+                elem.card = true;
+            }
+            return elem;
+        }))
+      }
+      function toggleMode(id) {
+        setProducts([...arrProducts].map(elem => {
+            if(elem.id === id) {
+                elem.isEdit = !elem.isEdit
+            }
+            return elem;
+        }))
+      }
+    
+      function editElem(event, value, id) {
+        setProducts([...arrProducts].map(elem => {
+            if(elem.id === id) {
+                elem[value] = event.target.value;
+            }
+            return elem;
+        }))
+      }
+
+
+      return (
+        <div className="border">
+          <h5>32. Переберите этот массив циклом и выведите всех юзеров на экран. Создайте для отображения юзера отдельный компонент User</h5>
+          <table>
+            <thead>
+                <tr>
+                    <td>Название</td>
+                    <td>Цена</td>
+                    <td>Изменить</td>
+                    <td>Корзина</td>
+                </tr>
+            </thead>
+            <tbody>
+                {result}
+            </tbody>
+          </table>
+        </div>
+      );
+} 
+
+export const Task33 = () => {
+    const products = [
+        { id: nanoid(3), name: 'Яблоко', cost: 30},
+        { id: nanoid(3), name: 'Банан', cost: 31},
+        { id: nanoid(3), name: 'Груша', cost: 32},
+      ];
+
+    const [prods, setProds] = useState(products);
+
+    function changeField(id, field, event) {
+        setProds(prods.map(prod => {
+            if (prod.id === id) {
+                prod[field] = event.target.value;
+            }
+            
+            return prod;
+        }));
+    }
+    
+    const rows = prods.map(prod => {
+        return <Product_1
+            key ={prod.id}
+            id  ={prod.id}
+            name={prod.name}
+            cost={prod.cost}
+            changeField={changeField}
+        />;
+    });
+        
+
+    return <>
+        <div className="border">
+            <h5>33. Переберите этот массив циклом и выведите всех юзеров на экран. Создайте для отображения юзера отдельный компонент User</h5>
+            <table>
+            <thead>
+                <tr>
+                    <td>Название</td>
+                    <td>Цена</td>
+                </tr>
+            </thead>
+            <tbody>
+                {rows}
+            </tbody>
+            </table>
+        </div>
+    </>
+   
+} 
 
 
 

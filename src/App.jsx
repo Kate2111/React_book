@@ -37,6 +37,9 @@ function App() {
       <all.Task28/>
       <all.Task29/>
       <all.Task30/>
+      <all.Task31/>
+      <all.Task32/>
+      <all.Task33/>
     </>
   )
 }
