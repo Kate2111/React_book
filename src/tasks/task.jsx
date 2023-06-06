@@ -4,10 +4,13 @@ import uuid from 'react-uuid';
 
 import React, { Component } from 'react';
 
-import Employee from './Employee_30task';
-import Employee_1 from './Employee_31task'
-import Product from './Product_32task'
-import Product_1 from './Product_33task'
+import Employee from './Components/Employee_30task';
+import Employee_1 from './Components/Employee_31task';
+import Product from './Components/Product_32task';
+import Product_1 from './Components/Product_33task';
+import TempInp from './Components/TempInp_34task';
+import Verdict from './Components/Verdict_34task';
+import TempInp_1 from './Components/TempInp_35task';
 
 export function Task1() {
     function showNum(number) {
@@ -1086,7 +1089,133 @@ export const Task33 = () => {
    
 } 
 
+export const Task34 = () => {
+    const [temp, setTemp] = useState('')
 
+    return <>
+        <div className="border">
+            <h5>34. Сделайте калькулятор температуры воды. Он будет представлять собой инпут, в который пользователь будет вводить температуру, и абзац, в который будет выводится вердикт: вода жидкая, вода твердая, вода газообразная.</h5>
+            <TempInp temp={temp} setTemp={setTemp}/>
+            <Verdict temp={temp}/>
+        </div>
+    </>
+   
+} 
+
+export const Task35 = () => {
+    const [temp, setTemp] = useState({ celsius: '', fahrenheit: '' })
+
+    function calculateTemp(event, type) {
+        if (type === 'celsius') {
+          setTemp({
+            ...temp,
+            celsius: event.target.value,
+            fahrenheit: (event.target.value * 9 / 5) + 32
+          });
+        } else if (type === 'fahrenheit') {
+          setTemp({
+            ...temp,
+            celsius: (event.target.value - 32) * 5 / 9,
+            fahrenheit: event.target.value
+          });
+        }
+      }
+
+    return <>
+        <div className="border">
+            <h5>35. Есть два инпута: в первый вводится температура в градусах Фаренгейта, а во второй - в градусах Цельсия.</h5>
+            <TempInp_1 temp={temp.celsius} type="celsius" calculateTemp={calculateTemp}/>
+            <TempInp_1 temp={temp.fahrenheit} type="fahrenheit" calculateTemp={calculateTemp}/>
+        </div>
+    </>
+   
+} 
+
+export const Task36 = () => {
+    function getSum(arr) {
+        let res = 0;
+        
+        for (let elem of arr) {
+            res += +elem;
+        }
+        
+        return res;
+    }
+    
+ 
+    const [value, setValue] = useState('');
+    const [nums, setNums] = useState([1, 2, 3]);
+    
+    function handleBlur() {
+        setNums([...nums, value]); // добавляем элемент в массив
+    }
+    
+
+    return <>
+        <div className="border">
+            <h5>36. Дан инпут, пусть введенное число добавляется в массив и выводится сумма чисел</h5>
+            <p>массив = {nums}</p>
+            <p>сумма чисел = {getSum(nums)}</p>
+        <input placeholder='Введите число' value={value} onChange={event => setValue(event.target.value)} onBlur={handleBlur} />
+        </div>
+    </>
+    
+} 
+
+export const Task37 = () => {
+    const [notes, setNotes] = useState([1, 2, 3, 4, 5]);
+	const [editNum, setEditNum] = useState(null);
+	const [value, setValue] = useState('');
+	
+	const result = notes.map((note, index) => {
+		return <p key={index} onClick={() => startEdit(index)}>
+			{note}
+		</p>;
+	});
+	
+	function startEdit(index) {
+		setEditNum(index);
+		setValue(notes[index]); // пишем текст редактируемого элемента в отдельный стейт
+	}
+	
+	function changeItem(event) {
+		setValue(event.target.value);
+		setNotes([...notes.slice(0, editNum), event.target.value,...notes.slice(editNum + 1)]);
+	}
+	
+    return <>
+        <div className="border">
+            <h5>37. Код для редактирования элементов массива</h5>
+            {result}
+		    <input value={value} onChange={changeItem} />
+        </div>
+    </>
+   
+} 
+
+export const Task38 = () => {
+    
+
+    return <>
+        <div className="border">
+            <h5>38. Проект Чеклист в React</h5>
+            
+        </div>
+    </>
+   
+} 
+
+export const Task39 = () => {
+    
+
+    return <>
+        <div className="border">
+            <h5>39. Проект Блокнот в React</h5>
+            
+        </div>
+    </>
+   
+} 
 
 
 

@@ -40,6 +40,12 @@ function App() {
       <all.Task31/>
       <all.Task32/>
       <all.Task33/>
+      <all.Task34/>
+      <all.Task35/>
+      <all.Task36/>
+      <all.Task37/>
+      <all.Task38/>
+      <all.Task39/>
     </>
   )
 }
