@@ -11,6 +11,8 @@ import Product_1 from './Components/Product_33task';
 import TempInp from './Components/TempInp_34task';
 import Verdict from './Components/Verdict_34task';
 import TempInp_1 from './Components/TempInp_35task';
+import Navbar from './Components/Navbar_38task';
+import cart from './../assets/trash.png';
 
 export function Task1() {
     function showNum(number) {
@@ -1194,11 +1196,80 @@ export const Task37 = () => {
 } 
 
 export const Task38 = () => {
-    
+    const [listToDo, setListToDo] = useState([]);
+    const [taskValueEdit, setTaskValue] = useState('');
 
+    function addTaskToList(value, setValue) {
+        setListToDo([...listToDo, { id: nanoid(3) , task: value, isDone: true, isEdit: true}]);
+        setValue('');  
+    }
+
+    //doneTask и editTask объеденить в одну
+    function doneTask(id) {
+        setListToDo(prevList => prevList.map(item => {
+            if(item.id === id){
+                return {...item, isDone: !item.isDone}
+            }
+            return item;
+        }))
+    }
+
+    function editTask(id) {
+        setListToDo(prevList => prevList.map(item => {
+            if(item.id === id){
+                return {...item, isEdit: !item.isEdit}
+            }
+            return item;
+        }))
+    }
+
+    function saveTask(event, id) {
+        if(event.key === 'Enter') {
+            setListToDo(prevList => prevList.map(item => {
+                if(item.id === id) {
+                    return { ...item, task: event.target.value };
+                }
+                return item;
+            }))
+        }
+    }
+    console.log(listToDo);
+
+    //Вынести в отдельный компонент
+    const result = [...listToDo].map((item) => {
+
+        const textStyle = {textDecoration: item.isDone ? 'none' : 'line-through'}
+                    
+        return <li 
+            style={{display: 'flex', justifyContent: 'space-between'}}
+            key={item.id}>{
+                    item.isEdit
+                    ? <span style={textStyle}>{item.task}</span> 
+                        //value не реактивен, посмотреть предыдущие задачи
+                    : <input 
+                        value={item.task} 
+                        onChange={event=> setTaskValue(event.target.value)} 
+                        onKeyDown={event => saveTask(event, item.id)}
+                    />
+                }
+                <div>
+                    <button style={{backgroundColor: 'transparent'}} onClick={() => doneTask(item.id)}>done</button>
+                    <button style={{backgroundColor: 'transparent'}} onClick={() => editTask(item.id)}>edit</button>
+                    <button style={{backgroundColor: 'transparent'}}>del</button>
+                </div>
+        </li>
+    })
+    
     return <>
         <div className="border">
             <h5>38. Проект Чеклист в React</h5>
+            <div className="wrapper">
+                <Navbar 
+                    addTaskToList={addTaskToList}
+       
+                />
+                <ul>{result}</ul>
+            </div>
             
         </div>
     </>
