@@ -1,4 +1,4 @@
-import ProductField from './ProductField_32task'
+import ProductField from './Task32_ProductField'
 
 
 export default function showEmployee({id, name, cost, isCard, addTOCatd, isEdit, toggleMode, editElem}) {

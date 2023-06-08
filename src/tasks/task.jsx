@@ -4,15 +4,16 @@ import uuid from 'react-uuid';
 
 import React, { Component } from 'react';
 
-import Employee from './Components/Employee_30task';
-import Employee_1 from './Components/Employee_31task';
-import Product from './Components/Product_32task';
-import Product_1 from './Components/Product_33task';
-import TempInp from './Components/TempInp_34task';
-import Verdict from './Components/Verdict_34task';
-import TempInp_1 from './Components/TempInp_35task';
-import Navbar from './Components/Navbar_38task';
-import cart from './../assets/trash.png';
+import Employee from './Components/Task30_Employee';
+import Employee_1 from './Components/Task31_Employee';
+import Product from './Components/Task32_Product';
+import Product_1 from './Components/Task33_Product';
+import TempInp from './Components/Task34_TempInp';
+import Verdict from './Components/Task34_Verdict';
+import TempInp_1 from './Components/Task35_TempInp';
+import Navbar from './Components/Task38_Navbar';
+import TaskItem from './Components/Task38_TaskItem'
+
 
 export function Task1() {
     function showNum(number) {
@@ -951,14 +952,12 @@ export const Task31 = () => {
     ];
 
     const result = users.map(elem => {
-        return <>
-            <Employee_1
+        return <Employee_1
                 key={elem.id}
                 name={elem.name}
                 surname={elem.surname}
                 age={elem.age}
             />
-        </>
     })
 
     return <>
@@ -1197,67 +1196,47 @@ export const Task37 = () => {
 
 export const Task38 = () => {
     const [listToDo, setListToDo] = useState([]);
-    const [taskValueEdit, setTaskValue] = useState('');
 
     function addTaskToList(value, setValue) {
         setListToDo([...listToDo, { id: nanoid(3) , task: value, isDone: true, isEdit: true}]);
         setValue('');  
     }
 
-    //doneTask и editTask объеденить в одну
-    function doneTask(id) {
-        setListToDo(prevList => prevList.map(item => {
-            if(item.id === id){
-                return {...item, isDone: !item.isDone}
-            }
-            return item;
-        }))
-    }
-
-    function editTask(id) {
-        setListToDo(prevList => prevList.map(item => {
-            if(item.id === id){
-                return {...item, isEdit: !item.isEdit}
-            }
-            return item;
-        }))
-    }
-
-    function saveTask(event, id) {
+    function addTaskToListEnter(event, value, setValue) {
         if(event.key === 'Enter') {
-            setListToDo(prevList => prevList.map(item => {
-                if(item.id === id) {
-                    return { ...item, task: event.target.value };
-                }
-                return item;
-            }))
+            addTaskToList(value, setValue);
         }
     }
-    console.log(listToDo);
 
-    //Вынести в отдельный компонент
-    const result = [...listToDo].map((item) => {
+    function changeTask(id, key, value) {
+        setListToDo(prevList => prevList.map(item => {
+            if(item.id === id){
+                return {...item, [key]: value}
+            }
+            return item;
+        }))
+    }
+
+    function deleteTask(id) {
+        setListToDo(prevList => prevList.filter((item) => {
+            if(item.id !== id){
+                return item
+            }
+        }))
+    }
+   
+    const result = [...listToDo].map((item, i) => {
 
         const textStyle = {textDecoration: item.isDone ? 'none' : 'line-through'}
                     
-        return <li 
-            style={{display: 'flex', justifyContent: 'space-between'}}
-            key={item.id}>{
-                    item.isEdit
-                    ? <span style={textStyle}>{item.task}</span> 
-                        //value не реактивен, посмотреть предыдущие задачи
-                    : <input 
-                        value={item.task} 
-                        onChange={event=> setTaskValue(event.target.value)} 
-                        onKeyDown={event => saveTask(event, item.id)}
-                    />
-                }
-                <div>
-                    <button style={{backgroundColor: 'transparent'}} onClick={() => doneTask(item.id)}>done</button>
-                    <button style={{backgroundColor: 'transparent'}} onClick={() => editTask(item.id)}>edit</button>
-                    <button style={{backgroundColor: 'transparent'}}>del</button>
-                </div>
-        </li>
+        return  <TaskItem
+                    key={item.id}
+                    item={item}
+                    index={i}
+                    changeTask={changeTask}
+                    textStyle={textStyle}
+                    deleteTask={deleteTask}
+                />
     })
     
     return <>
@@ -1266,7 +1245,7 @@ export const Task38 = () => {
             <div className="wrapper">
                 <Navbar 
                     addTaskToList={addTaskToList}
-       
+                    addTaskToListEnter={addTaskToListEnter}
                 />
                 <ul>{result}</ul>
             </div>

@@ -1,4 +1,4 @@
-import ProductField from './ProductField_33task'
+import ProductField from './Task33_ProductField'
 
 
 export default function Product({ id, name, cost, changeField }) {

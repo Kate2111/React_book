@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function Todo_input({addTaskToList}) {
+export default function Todo_input({addTaskToList, addTaskToListEnter}) {
     const [inputValue, setValue] = useState('');
     return <>
         <input 
@@ -8,6 +8,7 @@ export default function Todo_input({addTaskToList}) {
             placeholder='Введите задачу'
             value={inputValue}
             onChange={event=>setValue(event.target.value)}
+            onKeyDown={(event => addTaskToListEnter(event, inputValue, setValue))}
         />
         <button 
             style={{marginLeft: '10px'}} 
