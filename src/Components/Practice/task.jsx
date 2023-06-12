@@ -4,15 +4,15 @@ import uuid from 'react-uuid';
 
 import React, { Component } from 'react';
 
-import Employee from './Components/Task30_Employee';
-import Employee_1 from './Components/Task31_Employee';
-import Product from './Components/Task32_Product';
-import Product_1 from './Components/Task33_Product';
-import TempInp from './Components/Task34_TempInp';
-import Verdict from './Components/Task34_Verdict';
-import TempInp_1 from './Components/Task35_TempInp';
-import Navbar from './Components/Task38_Navbar';
-import TaskItem from './Components/Task38_TaskItem'
+import Employee from './Task/Task30_Employee';
+import Employee_1 from './Task/Task31_Employee';
+import Product from './Task/Task32_Product';
+import Product_1 from './Task/Task33_Product';
+import TempInp from './Task/Task34_TempInp';
+import Verdict from './Task/Task34_Verdict';
+import TempInp_1 from './Task/Task35_TempInp';
+import Navbar from './Task/Task38_Navbar';
+import TaskItem from './Task/Task38_TaskItem'
 
 
 export function Task1() {
