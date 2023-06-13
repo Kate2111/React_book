@@ -9,41 +9,26 @@
   padding: 10px;
 }
 
-.wrapper-book{
-  display: flex;
-  gap: 30px;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
-
-
-.card{
-  width: 250px;
-  height: 342px;
-  background-color: rgba(137, 43, 226, 0.219);
+.wrapper-nav{
   display: flex;
   justify-content: space-between;
-  flex-direction: column;
 }
 
-.card__image{
-  height: 300px;
+.card{
+  border: 1px solid black;
+  padding: 5px 10px;
+  margin: 10px 0;
+}
+
+.card p{
+  margin: 0;
+}
+
+.card p span {
+  font-weight: 700;
 }
 
 .card__descr{
-  padding: 10px 20px;
-}
-
-.card__btn {
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  text-decoration: none;
-  color: black;
-  text-align: center;
-  cursor: pointer;
-  transition: border-color 0.25s;
+  height: 50px;
+  overflow: auto;
 }

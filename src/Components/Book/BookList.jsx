@@ -4,13 +4,19 @@ import BookItem from './BookItem';
 const BookList = ({book}) => {
 
     const bookItem = [...book].map(item=>{
-        const srcImageBook = item.volumeInfo.imageLinks.thumbnail;
-        const titleBook = item.volumeInfo.title;
+        //const srcImageBook = item.volumeInfo.imageLinks.thumbnail;
         const id = item.id;
+        const titleBook = item.volumeInfo.title;
+        const descrBook = item.volumeInfo.description;
+        const autorBook = item.volumeInfo.authors;
+        const yearBook = item.volumeInfo.publishedDate;
         return  <BookItem
+                    key={id}
                     idBook={id}
-                    srcImageBook={srcImageBook}
                     titleBook={titleBook}
+                    descrBook={descrBook}
+                    autorBook={autorBook}
+                    yearBook={yearBook}
                 />
     })
 
