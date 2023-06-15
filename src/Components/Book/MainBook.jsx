@@ -5,22 +5,20 @@ import { useState, useEffect } from 'react';
 import BookList from './BookList';
 import MyButton from './UI/button/MyButton';
 import MyInput from './UI/input/MyInput';
+import BookForm from './BookForm';
+import MySelect from './UI/select/MySelect';
 
 
 
 const Book = () => {
-    const newBookItem = {
-        valueName: '',
-        valueAutor: '',
-        valueYear: '',
-        valueDescr: ''
-    }
+ 
     const [bookArr, setBook] = useState([]);
-    const [bookItem, setBookItem] = useState(newBookItem)
-    /* const [valueName, setValueName] = useState('');
-    const [valueAutor, setValueAutor] = useState('');
-    const [valueYear, setValueYear] = useState('');
-    const [valueDescr, setValueDescr] = useState(''); */
+    const [selectSort, setSelectSort] = useState('')
+    const arrForSort = [
+        {   value: 'title', name: 'title' },
+        {   value: 'description', name: 'description' },
+        {   value: 'publishedDate', name: 'year' },
+    ]
 
     useEffect(() => {
         showBook();
@@ -32,37 +30,44 @@ const Book = () => {
         .catch(err=>console.log(err))
     }
 
-    function addNewBook(event) {
-        event.preventDefault();
-        const newBook = {
-            id: nanoid(5),
-            volumeInfo: {
-                title: bookItem.valueName,
-                authors: bookItem.valueAutor,
-                publishedDate: bookItem.valueYear,
-                description: bookItem.valueDescr
-            }
-        }
-        setBook([...bookArr, newBook]);
-        setBookItem({
-            valueName: '',
-            valueAutor: '',
-            valueYear: '',
-            valueDescr: ''
-        })
+    function deleteElem(index) {
+        setBook(bookArr.filter(item => item.id !== index))
     }
 
+    const sortElem = (sort) => {
+        setSelectSort(sort);
+       
+        setBook([...bookArr].sort((item1, item2) => {
+            return item1.volumeInfo[sort].localeCompare(item2.volumeInfo[sort]);   
+        }));
+    }
 
     return (
        <>   
-            <form className='wrapper-nav'>
-                <MyInput placeholder='Название книги' value={bookItem.valueName} onChange={(event => setBookItem({...bookItem, valueName: event.target.value}))}/>
-                <MyInput placeholder='Авторы' value={bookItem.valueAutor} onChange={(event => setBookItem({...bookItem, valueAutor: event.target.value}))}/>
-                <MyInput placeholder='Год выпуска' value={bookItem.valueYear} onChange={(event => setBookItem({...bookItem, valueYear: event.target.value}))}/>
-                <MyInput placeholder='Описание' value={bookItem.valueDescr} onChange={(event => setBookItem({...bookItem, valueDescr: event.target.value}))}/>
-                <MyButton onClick={event => addNewBook(event)}>add</MyButton>
-            </form>
-            <BookList book={bookArr}/>
+            <BookForm 
+                bookArr={bookArr} 
+                setBook={setBook}
+            />
+           
+            {
+                bookArr.length
+                ?   (
+                        <>
+                            <MySelect
+                            defaultValue='Sort'
+                            value={selectSort}
+                            onChange={sortElem}
+                            options={arrForSort}
+                            />
+                            <BookList 
+                                bookArr={bookArr}
+                                deleteElem={deleteElem}
+                            />
+                        </>
+                    )
+                : <h1>The list is empty</h1>
+            }
+            
        </>
     );
 };

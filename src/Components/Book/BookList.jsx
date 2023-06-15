@@ -1,15 +1,16 @@
 import React from 'react';
 import BookItem from './BookItem';
 
-const BookList = ({book}) => {
+const BookList = ({bookArr, deleteElem}) => {
 
-    const bookItem = [...book].map(item=>{
+    const bookItem = [...bookArr].map(item=>{
         //const srcImageBook = item.volumeInfo.imageLinks.thumbnail;
         const id = item.id;
         const titleBook = item.volumeInfo.title;
         const descrBook = item.volumeInfo.description;
         const autorBook = item.volumeInfo.authors;
         const yearBook = item.volumeInfo.publishedDate;
+        
         return  <BookItem
                     key={id}
                     idBook={id}
@@ -17,6 +18,7 @@ const BookList = ({book}) => {
                     descrBook={descrBook}
                     autorBook={autorBook}
                     yearBook={yearBook}
+                    deleteElem={deleteElem}
                 />
     })
 

@@ -1,0 +1,22 @@
+.mySelect{
+    margin-top: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    border: solid 1px teal;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+
+    cursor: pointer;
+    transition: border-color 0.25s; 
+}
+
+.mySelect:hover {
+  border-color: #646cff;
+}
+
+.mySelect:focus,
+.mySelect:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
