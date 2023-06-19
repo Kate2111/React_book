@@ -12,6 +12,8 @@
 .wrapper-nav{
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .card{
@@ -39,4 +41,15 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+}
+
+.filter-wrapper{
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter-input{
+  width: 100%;
+  border: 1px solid teal;
 }

@@ -1,73 +1,73 @@
 import React from 'react';
 import  axios from 'axios';
-import { nanoid } from 'nanoid';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import BookList from './BookList';
-import MyButton from './UI/button/MyButton';
-import MyInput from './UI/input/MyInput';
 import BookForm from './BookForm';
-import MySelect from './UI/select/MySelect';
+import BookFilter from './BookFilter';
+import Modal from './UI/modal/Modal';
+import MyButton from './UI/button/MyButton';
 
 
 
 const Book = () => {
- 
-    const [bookArr, setBook] = useState([]);
-    const [selectSort, setSelectSort] = useState('')
-    const arrForSort = [
-        {   value: 'title', name: 'title' },
-        {   value: 'description', name: 'description' },
-        {   value: 'publishedDate', name: 'year' },
-    ]
-
-    useEffect(() => {
-        showBook();
-    }, []);
-
     function showBook() {
         axios.get('https://www.googleapis.com/books/v1/volumes?q=react&key=AIzaSyA9knLZoLZlpSkvNQR6BSW6xOLzlHzkqYM')
         .then(res=>setBook(res.data.items))
         .catch(err=>console.log(err))
     }
+   
+    
+    useEffect(() => {
+        showBook();
+    }, []);
+
+    const [bookArr, setBook] = useState([]);
+    const [filter, setFilter] = useState({sort: '', query: ''});
+    const [modal, setModal] = useState(false);
+
+   
+    const sortedBooks = useMemo(() => {
+        if(filter.sort) {
+            return [...bookArr].sort((item1, item2) =>  item1.volumeInfo[filter.sort].localeCompare(item2.volumeInfo[filter.sort]));
+        } 
+        return bookArr;
+    }, [filter.sort, bookArr]);
+
+    const sortedAndSearchedBooks = useMemo(() => {
+        return sortedBooks.filter(book => book.volumeInfo.title.toLowerCase().includes(filter.query))
+    }, [sortedBooks, filter.query])
+
 
     function deleteElem(index) {
         setBook(bookArr.filter(item => item.id !== index))
     }
 
-    const sortElem = (sort) => {
-        setSelectSort(sort);
-       
-        setBook([...bookArr].sort((item1, item2) => {
-            return item1.volumeInfo[sort].localeCompare(item2.volumeInfo[sort]);   
-        }));
-    }
-
     return (
        <>   
-            <BookForm 
-                bookArr={bookArr} 
-                setBook={setBook}
+            <MyButton onClick={() => setModal(true)}>Add book to list</MyButton>
+            <Modal visible={modal} setVisible={setModal}>
+                <BookForm  
+                    bookArr={bookArr} 
+                    setBook={setBook} 
+                    setVisible={setModal}
+                />
+            </Modal>
+            
+            <BookFilter 
+                filter={filter}
+                setFilter={setFilter}
             />
-           
+
             {
-                bookArr.length
-                ?   (
-                        <>
-                            <MySelect
-                            defaultValue='Sort'
-                            value={selectSort}
-                            onChange={sortElem}
-                            options={arrForSort}
-                            />
-                            <BookList 
-                                bookArr={bookArr}
-                                deleteElem={deleteElem}
-                            />
-                        </>
-                    )
+                sortedAndSearchedBooks.length 
+                ?   <BookList 
+                        bookArr={sortedAndSearchedBooks} 
+                        deleteElem={deleteElem}
+                    /> 
                 : <h1>The list is empty</h1>
             }
-            
+
+           
        </>
     );
 };

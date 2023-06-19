@@ -4,7 +4,7 @@ import MyInput from './UI/input/MyInput';
 import { nanoid } from 'nanoid';
 import { useState } from 'react';
 
-const BookForm = ({bookArr, setBook}) => {
+const BookForm = ({bookArr, setBook,setVisible}) => {
     const newBookItem = {
         valueName: '',
         valueAutor: '',
@@ -25,6 +25,7 @@ const BookForm = ({bookArr, setBook}) => {
             }
         }
         setBook([...bookArr, newBook]);
+        setVisible(false);
         setBookItem({
             valueName: '',
             valueAutor: '',

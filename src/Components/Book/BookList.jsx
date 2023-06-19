@@ -3,6 +3,10 @@ import BookItem from './BookItem';
 
 const BookList = ({bookArr, deleteElem}) => {
 
+    /* if(!sortArr.length) {
+        <h1>The list is empty</h1>
+    }
+    */
     const bookItem = [...bookArr].map(item=>{
         //const srcImageBook = item.volumeInfo.imageLinks.thumbnail;
         const id = item.id;

@@ -1,5 +1,4 @@
 .mySelect{
-    margin-top: 20px;
     border-radius: 8px;
     background-color: #f9f9f9;
     border: solid 1px teal;
@@ -7,7 +6,7 @@
     font-size: 1em;
     font-weight: 500;
     font-family: inherit;
-
+    margin-left: 5.5%;
     cursor: pointer;
     transition: border-color 0.25s; 
 }
