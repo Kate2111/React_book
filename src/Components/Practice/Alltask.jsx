@@ -5,6 +5,7 @@ export default function Alltask() {
 
   return (
     <>
+      <h2 style={{marginTop: '50px'}}>Задачи по учебнику</h2>
       <Task1/>
       <Task2/>
       <Task3/>

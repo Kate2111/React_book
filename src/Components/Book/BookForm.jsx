@@ -37,22 +37,22 @@ const BookForm = ({bookArr, setBook,setVisible}) => {
     return (
         <form className='wrapper-nav'>
             <MyInput 
-                placeholder='Название книги' 
+                placeholder='Book titile' 
                 value={bookItem.valueName} 
                 onChange={(event => setBookItem({...bookItem, valueName: event.target.value}))}
             />
             <MyInput 
-                placeholder='Авторы' 
+                placeholder='Autors' 
                 value={bookItem.valueAutor} 
                 onChange={(event => setBookItem({...bookItem, valueAutor: event.target.value}))}
             />
             <MyInput 
-                placeholder='Год выпуска' 
+                placeholder='Publishing year' 
                 value={bookItem.valueYear} 
                 onChange={(event => setBookItem({...bookItem, valueYear: event.target.value}))}
             />
             <MyInput 
-                placeholder='Описание' 
+                placeholder='Description' 
                 value={bookItem.valueDescr} 
                 onChange={(event => setBookItem({...bookItem, valueDescr: event.target.value}))}
             />

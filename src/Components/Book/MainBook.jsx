@@ -1,43 +1,30 @@
 import React from 'react';
 import  axios from 'axios';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect} from 'react';
 import BookList from './BookList';
 import BookForm from './BookForm';
 import BookFilter from './BookFilter';
 import Modal from './UI/modal/Modal';
 import MyButton from './UI/button/MyButton';
-
+import {useSearchedBooks} from './../../hooks/useBook'
 
 
 const Book = () => {
-    function showBook() {
+    function showApiBook() {
         axios.get('https://www.googleapis.com/books/v1/volumes?q=react&key=AIzaSyA9knLZoLZlpSkvNQR6BSW6xOLzlHzkqYM')
         .then(res=>setBook(res.data.items))
         .catch(err=>console.log(err))
     }
-   
-    
+ 
     useEffect(() => {
-        showBook();
+        showApiBook();
     }, []);
 
     const [bookArr, setBook] = useState([]);
     const [filter, setFilter] = useState({sort: '', query: ''});
     const [modal, setModal] = useState(false);
-
+    const sortedAndSearchedBooks = useSearchedBooks({ bookArr, sort: filter.sort, query: filter.query })
    
-    const sortedBooks = useMemo(() => {
-        if(filter.sort) {
-            return [...bookArr].sort((item1, item2) =>  item1.volumeInfo[filter.sort].localeCompare(item2.volumeInfo[filter.sort]));
-        } 
-        return bookArr;
-    }, [filter.sort, bookArr]);
-
-    const sortedAndSearchedBooks = useMemo(() => {
-        return sortedBooks.filter(book => book.volumeInfo.title.toLowerCase().includes(filter.query))
-    }, [sortedBooks, filter.query])
-
-
     function deleteElem(index) {
         setBook(bookArr.filter(item => item.id !== index))
     }

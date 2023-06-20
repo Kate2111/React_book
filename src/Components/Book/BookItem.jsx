@@ -6,10 +6,10 @@ const BookItem = ({idBook, titleBook, descrBook, autorBook, yearBook, deleteElem
     return (
         <div className='card' key={idBook}>
             <span>
-                <p><span>Название:</span> {titleBook} </p>
-                <p><span>Автор:</span> {autorBook}</p>
-                <p><span>Год выпуска:</span> {yearBook}</p>
-                <p className='card__descr'><span>Описание:</span> {descrBook}</p>
+                <p><span>Title:</span> {titleBook} </p>
+                <p><span>Autor:</span> {autorBook}</p>
+                <p><span>Year:</span> {yearBook}</p>
+                <p className='card__descr'><span>Description:</span> {descrBook}</p>
             </span>
             <span className='card__buttons'>
                 <MyButton onClick={() => deleteElem(idBook)}>delete</MyButton>
