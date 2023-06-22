@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid'
 import { useId, useState } from 'react';
 import uuid from 'react-uuid';
 
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 import Employee from './Task/Task30_Employee';
 import Employee_1 from './Task/Task31_Employee';

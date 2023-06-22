@@ -1,12 +1,12 @@
-import React from 'react';
+
 import  axios from 'axios';
 import { useState, useEffect} from 'react';
-import BookList from './BookList';
-import BookForm from './BookForm';
-import BookFilter from './BookFilter';
-import Modal from './UI/modal/Modal';
-import MyButton from './UI/button/MyButton';
-import {useSearchedBooks} from './../../hooks/useBook'
+import BookList from '../Components/Book/BookList';
+import BookForm from '../Components/Book/BookForm';
+import BookFilter from '../Components/Book/BookFilter';
+import Modal from '../Components/Book/UI/modal/Modal';
+import MyButton from '../Components/Book/UI/button/MyButton';
+import {useSearchedBooks} from '../hooks/useBook'
 
 
 const Book = () => {

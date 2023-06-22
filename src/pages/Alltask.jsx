@@ -1,5 +1,5 @@
-import { Task1, Task2, Task3, Task4, Task5} from './task'
-import * as all from './task'
+import { Task1, Task2, Task3, Task4, Task5} from '../Components/Practice/task'
+import * as all from '../Components/Practice/task'
 
 export default function Alltask() {
 
