@@ -1,7 +1,11 @@
 import MyButton from './UI/button/MyButton';
+import {useNavigate} from 'react-router-dom';
 
 const BookItem = ({idBook, titleBook, descrBook, autorBook, yearBook, deleteElem}) => {
+   const navigate = useNavigate();
+   //console.log(navigate);
    
+
     return (
         <div className='card' key={idBook}>
             <span>
@@ -12,7 +16,7 @@ const BookItem = ({idBook, titleBook, descrBook, autorBook, yearBook, deleteElem
             </span>
             <span className='card__buttons'>
                 <MyButton onClick={() => deleteElem(idBook)}>delete</MyButton>
-                <MyButton>edit</MyButton>
+                <MyButton onClick={() => navigate(`/React_test/${idBook}`)}>open</MyButton>
             </span>
         </div> 
     );

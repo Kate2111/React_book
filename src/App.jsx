@@ -3,6 +3,7 @@ import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 import Alltask from './pages/Alltask';
 import MainBook from './pages/MainBook';
 import MyButton from './Components/Book/UI/button/MyButton';
+import BookDescription from './Components/Book/BookDescription';
 
 
 function App() {
@@ -15,8 +16,9 @@ function App() {
         
 
         <Routes>
-          <Route path="/React_test" element={<MainBook />} />
-          <Route path="/React_test/allTask" element={<Alltask />} />
+          <Route exact path="/React_test" element={<MainBook />} />
+          <Route exact path="/React_test/allTask" element={<Alltask />} />
+          <Route exact path="/React_test/:id" element={<BookDescription/>}/>
         </Routes>
       </BrowserRouter>
     </>

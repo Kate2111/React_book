@@ -1,5 +1,6 @@
 
 import  axios from 'axios';
+import BookServise from '../API/BookServise';
 import { useState, useEffect} from 'react';
 import BookList from '../Components/Book/BookList';
 import BookForm from '../Components/Book/BookForm';
@@ -11,11 +12,17 @@ import {useSearchedBooks} from '../hooks/useBook'
 
 const Book = () => {
     function showApiBook() {
-        axios.get('https://www.googleapis.com/books/v1/volumes?q=react&key=AIzaSyA9knLZoLZlpSkvNQR6BSW6xOLzlHzkqYM')
-        .then(res=>setBook(res.data.items))
+        BookServise.getAll()
+        .then(res=>setBook(res))
         .catch(err=>console.log(err))
     }
  
+    /* async function showApiBook() {
+        const books = await BookServise.getAll();
+        setBook(books);
+       
+    } */
+
     useEffect(() => {
         showApiBook();
     }, []);
