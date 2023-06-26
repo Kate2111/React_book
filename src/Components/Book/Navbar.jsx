@@ -14,7 +14,7 @@ const Navbar = () => {
 
     return (<>
         {
-            isAuth && location.pathname === '/React_test'
+            isAuth && location.pathname === '/React_test/'
             ?
             (
                 <div className="navbar_buttons">

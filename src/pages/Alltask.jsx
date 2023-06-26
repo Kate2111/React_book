@@ -8,7 +8,7 @@ export default function Alltask() {
 
   return (
     <>
-      <MyButton  onClick={() =>navigate(`/React_test`)}>go back</MyButton>
+      <MyButton  onClick={() =>navigate(`/React_test/`)}>go back</MyButton>
       <h2 style={{marginTop: '50px'}}>Задачи по учебнику</h2>
       <Task1/>
       <Task2/>

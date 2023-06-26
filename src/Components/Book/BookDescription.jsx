@@ -21,7 +21,7 @@ const BookDescription = () => {
    
 
     return (<>
-            <MyButton  onClick={() =>navigate(`/React_test`)}>go back</MyButton>
+            <MyButton  onClick={() =>navigate(`/React_test/`)}>go back</MyButton>
             <div className='wrapper-book'>
                 {
                     [...book].map(item => {
