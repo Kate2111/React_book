@@ -12,10 +12,14 @@
 <h3>Инструменты</h3>
 <ul>
     <li> Google Book APIs</li>
-    <li> useState, useEffect, useMemo useContext</li>
-    <li> useSearchedBooks - user hook</li>
-    <li> react-router-dom: useNavigate, useLocation, useParams,BrowserRouter, Routes, Route, Link</li>
-    <li>react-transition-group: TransitionGroup, CSSTransition</li>
+    <li> Сборка Vite</li>
+    <li> Библиотека Axios, React:</li>
+    <ul>
+         <li> useState, useEffect, useMemo useContext</li>
+        <li> useSearchedBooks - user hook</li>
+        <li> react-router-dom: useNavigate, useLocation, useParams,BrowserRouter, Routes, Route, Link</li>
+        <li>react-transition-group: TransitionGroup, CSSTransition</li>
+    </ul>
+   
 </ul>
-
 
