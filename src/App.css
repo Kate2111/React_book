@@ -70,3 +70,9 @@
   opacity: 0;
   transition: opacity 500ms ease-in;
 }
+
+.navbar_buttons{
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}

@@ -1,10 +1,14 @@
-import { Task1, Task2, Task3, Task4, Task5} from '../Components/Practice/task'
-import * as all from '../Components/Practice/task'
+import { Task1, Task2, Task3, Task4, Task5} from '../Components/Practice/task';
+import * as all from '../Components/Practice/task';
+import {useNavigate} from 'react-router-dom';
+import MyButton from '../Components/Book/UI/button/MyButton';
 
 export default function Alltask() {
+  const navigate = useNavigate();
 
   return (
     <>
+      <MyButton  onClick={() =>navigate(`/React_test`)}>go back</MyButton>
       <h2 style={{marginTop: '50px'}}>Задачи по учебнику</h2>
       <Task1/>
       <Task2/>

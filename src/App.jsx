@@ -1,26 +1,33 @@
 import './App.css';
-import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
-import Alltask from './pages/Alltask';
-import MainBook from './pages/MainBook';
-import MyButton from './Components/Book/UI/button/MyButton';
-import BookDescription from './Components/Book/BookDescription';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import { AuthContext } from './context';
+import { useState } from 'react';
+import AppRouter from './Components/Book/AppRouter';
+import { useEffect } from 'react';
+import Navbar from './Components/Book/Navbar';
 
 
 function App() {
+  const [isAuth, setIsAuth] = useState(false);
+
+useEffect(() => {
+  if(localStorage.getItem('auth')){
+    setIsAuth(true)
+  }
+}, [])
+
   return (
     <>
-      <BrowserRouter>
-        <MyButton style={{marginRight: '20px'}}>
-          <Link to="/React_test/allTask">Задачи по учебнику</Link>
-        </MyButton>
-        
-
-        <Routes>
-          <Route exact path="/React_test" element={<MainBook />} />
-          <Route exact path="/React_test/allTask" element={<Alltask />} />
-          <Route exact path="/React_test/:id" element={<BookDescription/>}/>
-        </Routes>
-      </BrowserRouter>
+    <AuthContext.Provider value={{
+        isAuth,
+        setIsAuth
+      }}
+    >
+        <BrowserRouter>
+          <Navbar/>
+          <AppRouter/> 
+        </BrowserRouter>
+    </AuthContext.Provider>
     </>
   )
 }
