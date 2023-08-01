@@ -1,6 +1,6 @@
-# React_test 
+# React_book 
 
-https://kate2111.github.io/React_test/
+https://kate2111.github.io/React_book/
 
 <h2>Бибилиотека</h2>
 
